@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+        <TextView
+            android:id="@+id/textShop"
+            android:gravity="top"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shop Name"/>
+
+        <TextView
+            android:id="@+id/itemShopName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"
+            android:text="Name of item in shop"/>
+
+        <TextView
+            android:id="@+id/textOfferDaysRemaining"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/holo_red_light"
+            android:text="No of days remaining"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/shopPrice"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="$6"/>
+
+</LinearLayout>

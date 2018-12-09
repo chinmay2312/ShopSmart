@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="40dp">
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:onClick="add2Checklist"
+        android:src="@android:drawable/ic_input_add"
+        android:background="#0fff"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_daily_recom_item"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:paddingHorizontal="10sp"
+        android:textSize="20sp"
+        android:gravity="start|center_vertical"
+        android:text="Item recommended"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/btn_daily_recom_cart"
+        android:layout_width="0dp"
+        android:scaleType="center"
+        android:layout_weight="1"
+        android:background="#0fff"
+        android:onClick="searchItem"
+        android:src="@android:drawable/ic_search_category_default"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Main2Activity">
+
+    <LinearLayout
+        android:id="@+id/ll_add_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/list_add"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:contentDescription="@string/list_add_desc"
+            android:src="@android:drawable/ic_input_add" />
+
+        <EditText
+            android:id="@+id/search_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:autofillHints=""
+            android:gravity="center"
+            android:hint="@string/add_or_search_hint"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0fff"
+            android:contentDescription="@string/btn_search_desc"
+            android:src="@android:drawable/ic_search_category_default" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_sep_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/ll_add_search" />
+
+    <ListView
+        android:id="@+id/checklist"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:paddingLeft="5dp"
+
+        app:layout_constraintTop_toBottomOf="@id/v_sep_1" />
+
+    <ImageButton
+        android:id="@+id/expand_checklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_expand"
+
+        app:layout_constraintTop_toBottomOf="@id/checklist" />
+
+    <View
+        android:id="@+id/v_sep_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+
+        app:layout_constraintTop_toBottomOf="@id/expand_checklist" />
+
+    <ListView
+        android:id="@+id/daily_recom"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:paddingLeft="5dp"
+
+        app:layout_constraintTop_toBottomOf="@id/expand_checklist" />
+
+    <ImageButton
+        android:id="@+id/expand_daily_recoms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_expand"
+
+        app:layout_constraintTop_toBottomOf="@id/daily_recom" />
+
+</android.support.constraint.ConstraintLayout>
