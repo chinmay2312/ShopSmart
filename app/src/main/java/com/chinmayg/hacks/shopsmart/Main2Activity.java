@@ -3,9 +3,11 @@ package com.chinmayg.hacks.shopsmart;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Main2Activity extends Activity {
@@ -38,8 +49,9 @@ public class Main2Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-
+	
+		new PostRecomm(this).execute();
+        
         checklist = findViewById(R.id.checklist);
 
         checklist_arrl.add("bread");
@@ -240,4 +252,62 @@ public class Main2Activity extends Activity {
             }
         }
     }
+    
+    private class PostRecomm extends AsyncTask<String,Void, Void>{
+    	private final Context context;
+    	
+    	public PostRecomm(Context c)	{
+    		this.context = c;
+		}
+	
+		@Override
+		protected Void doInBackground(String... params) {
+			
+    		HttpURLConnection conn=null;
+			try{
+				URL url = new URL("http://ec2-35-171-182-214.compute-1.amazonaws.com:3000/recommendations");
+				conn = (HttpURLConnection) url.openConnection();
+				//String urlParams = "user=chin";
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+				
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				
+				JSONObject postParams = new JSONObject();
+				postParams.put("user","chin");
+				
+				conn.connect();
+				
+				DataOutputStream dStream = new DataOutputStream(conn.getOutputStream());
+				dStream.writeBytes(postParams.toString());
+				dStream.flush();
+				dStream.close();
+				int resCode = conn.getResponseCode();
+				
+				Log.d("post","Response code: "+resCode);
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line = "";
+				StringBuilder responseOutput = new StringBuilder();
+				while((line = br.readLine()) != null ) {
+					responseOutput.append(line);
+				}
+				br.close();
+				conn.disconnect();
+				
+				Log.d("post","Output:"+responseOutput.toString());
+				
+			} catch (IOException e)	{
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} finally {
+				if(conn!=null)
+					conn.disconnect();
+			}
+			
+			return null;
+		}
+	}
 }
