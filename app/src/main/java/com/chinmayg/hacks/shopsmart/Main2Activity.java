@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,7 +79,7 @@ public class Main2Activity extends Activity {
                     checklist.setLayoutParams(params);
                     checklist.requestLayout();
                     isChecklistExpanded = true;
-                    expandChecklist.setImageDrawable(getResources().getDrawable(R.drawable.ic_collapse));
+                    expandChecklist.setImageDrawable(getDrawable(R.drawable.ic_collapse));
                 }
                 else    {
                     params = checklist.getLayoutParams();
@@ -90,7 +88,7 @@ public class Main2Activity extends Activity {
                     checklist.setLayoutParams(params);
                     checklist.requestLayout();
                     isChecklistExpanded = false;
-                    expandChecklist.setImageDrawable(getResources().getDrawable(R.drawable.ic_expand));
+                    expandChecklist.setImageDrawable(getDrawable(R.drawable.ic_expand));
                 }
             }
         });
@@ -165,7 +163,7 @@ public class Main2Activity extends Activity {
                     dailyRecom.setLayoutParams(paramsRecom);
                     dailyRecom.requestLayout();
                     isDailyRecomExpanded = true;
-                    expandDailyRecoms.setImageDrawable(getResources().getDrawable(R.drawable.ic_collapse));
+                    expandDailyRecoms.setImageDrawable(getDrawable(R.drawable.ic_collapse));
                 }
                 else    {
                     paramsRecom = dailyRecom.getLayoutParams();
@@ -174,7 +172,7 @@ public class Main2Activity extends Activity {
                     dailyRecom.setLayoutParams(paramsRecom);
                     dailyRecom.requestLayout();
                     isDailyRecomExpanded = false;
-                    expandDailyRecoms.setImageDrawable(getResources().getDrawable(R.drawable.ic_expand));
+                    expandDailyRecoms.setImageDrawable(getDrawable(R.drawable.ic_expand));
                 }
             }
         });
@@ -294,13 +292,18 @@ public class Main2Activity extends Activity {
 					responseOutput.append(line);
 				}
 				br.close();
-				conn.disconnect();
 				
 				Log.d("post","Output:"+responseOutput.toString());
 				
-			} catch (IOException e)	{
-				e.printStackTrace();
-			} catch (JSONException e) {
+				JSONObject dailyRecJson = new JSONObject(responseOutput.toString());
+				Log.d("post","Rec-Type:"+dailyRecJson.get("recommendation_type"));
+				JSONArray dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
+				dailyRecom_arrl.clear();
+				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
+					dailyRecom_arrl.add(dailyRecsArrJson.getString(dailyRecIndex));
+				}
+				
+			} catch (IOException | JSONException e)	{
 				e.printStackTrace();
 			} finally {
 				if(conn!=null)
@@ -308,6 +311,13 @@ public class Main2Activity extends Activity {
 			}
 			
 			return null;
+		}
+	
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			dailyRecomAdapter.notifyDataSetChanged();
+			Toast.makeText(context, "Updated recommendations",Toast.LENGTH_SHORT).show();
+    		super.onPostExecute(aVoid);
 		}
 	}
 }
