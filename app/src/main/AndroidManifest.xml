@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.chinmayg.hacks.shopsmart">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -24,10 +24,9 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main" />
         <activity android:name=".Main2Activity" />
-        <!--<activity android:name=".Cart_Activity" />
-        <activity android:name=".Search_Activity" />
-        --><activity android:name=".SearchActivity" />
-        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".ChecklistActivity"></activity>
     </application>
 
 </manifest>
