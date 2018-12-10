@@ -42,21 +42,11 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintTop_toBottomOf="@id/ll_add_search" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/top_picks"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:paddingLeft="5dp"
-
-        app:layout_constraintTop_toBottomOf="@id/v_sep_1" />
-
-    <ImageButton
-        android:id="@+id/expand_top_picks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_expand"
-
-        app:layout_constraintTop_toBottomOf="@id/top_picks" />
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/v_sep_1"/>
 
     <View
         android:id="@+id/v_sep_2"
@@ -64,7 +54,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
 
-        app:layout_constraintTop_toBottomOf="@id/expand_top_picks" />
+        app:layout_constraintTop_toBottomOf="@id/top_picks" />
 
     <ListView
         android:id="@+id/daily_recom"
@@ -72,7 +62,7 @@
         android:layout_height="180dp"
         android:paddingLeft="5dp"
 
-        app:layout_constraintTop_toBottomOf="@id/expand_top_picks" />
+        app:layout_constraintTop_toBottomOf="@id/v_sep_2" />
 
     <ImageButton
         android:id="@+id/expand_daily_recoms"

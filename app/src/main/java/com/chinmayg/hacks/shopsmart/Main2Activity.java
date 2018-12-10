@@ -1,17 +1,17 @@
 package com.chinmayg.hacks.shopsmart;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -34,13 +34,16 @@ import java.util.ArrayList;
 
 public class Main2Activity extends Activity {
 
-    ListView topPicks, dailyRecom;
-    boolean isTopPicksExpanded, isDailyRecomExpanded;
+    ListView dailyRecom;
+    RecyclerView topPicks2;
+    RecyclerView.LayoutManager topPicksLM;
+    RecyclerView.Adapter topPicksAd;
+    boolean isDailyRecomExpanded;
 
-    final ArrayList<String> topPicks_arrl = new ArrayList<>();
+    final ArrayList<ShopItem> topPicks_arrl = new ArrayList<>();
     final ArrayList<String> dailyRecom_arrl = new ArrayList<>();
 
-    CheckListAdapter topPicksAdapter;
+    TopPicksAdapter topPicksAdapter;
     DailyRecomAdapter dailyRecomAdapter;
 
     @Override
@@ -51,50 +54,24 @@ public class Main2Activity extends Activity {
 	
 		new PostRecomm(this).execute();
         
-        topPicks = findViewById(R.id.top_picks);
-
-        topPicks_arrl.add("bread");
-        topPicks_arrl.add("butter");
-        topPicks_arrl.add("ketchup");
-        topPicks_arrl.add("milk");
-        topPicks_arrl.add("mixed fruit jam");
-        topPicks_arrl.add("salt");
-
-        ViewGroup.LayoutParams params = topPicks.getLayoutParams();
-        params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(topPicks_arrl.size(),5);
-        topPicks.setLayoutParams(params);
-        topPicks.requestLayout();
-        isTopPicksExpanded = false;
-
-        final ImageButton expandTopPicks = findViewById(R.id.expand_top_picks);
-        expandTopPicks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ViewGroup.LayoutParams params;
-
-                if(!isTopPicksExpanded) {
-                    params = topPicks.getLayoutParams();
-                    //params.height = 110 * Math.min(topPicks_arrl.size(), 10);
-                    params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(topPicks_arrl.size(),10);
-                    topPicks.setLayoutParams(params);
-                    topPicks.requestLayout();
-                    isTopPicksExpanded = true;
-                    expandTopPicks.setImageDrawable(getDrawable(R.drawable.ic_collapse));
-                }
-                else    {
-                    params = topPicks.getLayoutParams();
-                    //params.height = 109 * Math.min(topPicks_arrl.size(), 5);
-                    params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(topPicks_arrl.size(),5);
-                    topPicks.setLayoutParams(params);
-                    topPicks.requestLayout();
-                    isTopPicksExpanded = false;
-                    expandTopPicks.setImageDrawable(getDrawable(R.drawable.ic_expand));
-                }
-            }
-        });
-        topPicksAdapter = new CheckListAdapter(this, topPicks_arrl);
-        topPicks.setAdapter(topPicksAdapter);
+        topPicks2 = findViewById(R.id.top_picks);
+		//dynaRecos.setHasFixedSize(true);
+		topPicksLM = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+		LinearLayoutManager llm = new LinearLayoutManager(Main2Activity.this, LinearLayoutManager.HORIZONTAL, false);
+		topPicks2.setLayoutManager(topPicksLM);
+		topPicks2.setLayoutManager(llm);
+		topPicksAd = new TopPicksAdapter(Main2Activity.this, topPicks_arrl);
+		topPicks2.setAdapter(topPicksAd);
+	
+		ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1);
+		ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1);
+		ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1);
+		topPicks_arrl.add(si);
+		topPicks_arrl.add(si2);
+		topPicks_arrl.add(si3);
+		
+        topPicksAdapter = new TopPicksAdapter(this, topPicks_arrl);
+        topPicks2.setAdapter(topPicksAdapter);
 
 
         final EditText addSearch = findViewById(R.id.search_box);
