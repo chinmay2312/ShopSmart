@@ -9,19 +9,26 @@
     android:orientation="vertical"
     tools:context=".CartActivity">
 
-    <ListView
-        android:id="@+id/cart_lv"
+    <ListView        android:id="@+id/cart_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"/>
 
 
-    <TextView
-        android:id="@+id/cart_total"
+    <TextView        android:id="@+id/cart_total"
         android:textSize="30sp"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <Button        android:id="@+id/btn_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        android:textStyle="bold"
+        android:text="Continue to checkout ->"
+        android:textSize="20dp"/>
 
 </LinearLayout>

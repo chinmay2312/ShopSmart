@@ -1,6 +1,7 @@
 package com.chinmayg.hacks.shopsmart;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,16 +46,21 @@ public class CartActivity extends Activity {
 
         cartItemAdapter = new CartItemAdapter(this, cart_list);
         lvcart.setAdapter(cartItemAdapter);
+	
+		cartTotal.setText("Your cart total is : $"+getCartTotal());
 
-        updateCartTotal();
-
-        //btn_addQuant.setOnItemClickListener();
-		lvcart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Button btnCheckout = findViewById(R.id.btn_checkout);
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-			
+			public void onClick(View view) {
+				Intent checkoutIntent = new Intent(CartActivity.this, CheckoutActivity.class);
+				checkoutIntent.putExtra("CART_TOTAL",getCartTotal());
+				checkoutIntent.putExtra("SHOP_NAME","Costco Wholesale");
+				checkoutIntent.putExtra("SHOP_ADDR","1430 S Ashland Ave, \nChicago, IL 60608");
+				startActivity(checkoutIntent);
 			}
 		});
+    
     }
     
     void updateQuantity(char action, int pos)	{
@@ -74,16 +80,21 @@ public class CartActivity extends Activity {
 				break;
 			}
 		}
-		updateCartTotal();
+		cartTotal.setText("Your cart total is : $"+getCartTotal());
 	}
 	
 	void updateCartTotal()	{
+	
+	}
+	
+	float getCartTotal()	{
 		float cartPrice = 0.0f;
 		for(ShopItem ci:cart_list)  {
 			cartPrice += ci.getShopPrice()*ci.getQuantity();
 		}
 		cartPrice = (float) Math.round(cartPrice*100f)/100f;
-		cartTotal.setText("Your cart total is : $"+cartPrice);
+		
+		return  cartPrice;
 	}
 	
 	public void addQuant(View v)	{
