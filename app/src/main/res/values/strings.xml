@@ -12,7 +12,7 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
-    <string name="add_or_search_hint">Add to List</string>
+    <string name="add_hint">Add to List</string>
     <string name="list_add_desc">Button to add item to checklist</string>
     <string name="btn_search_desc">Button to search product</string>
     <string name="msg_checklist_empty">You have nothing in your checklist!</string>
