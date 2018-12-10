@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -211,11 +212,15 @@ public class Main2Activity extends Activity {
         }
     }
     
-    private class PostRecomm extends AsyncTask<String,Void, Void>{
-    	private final Context context;
+    private static class PostRecomm extends AsyncTask<String,Void, Void>{
+    	JSONObject dailyRecJson=null;
+    	JSONArray dailyRecsArrJson=null;
     	
-    	public PostRecomm(Context c)	{
-    		this.context = c;
+    	private WeakReference<Main2Activity> main2ActivityWeakReference;
+    	
+    	public PostRecomm(Main2Activity c)	{
+    		//this.context = c;
+			main2ActivityWeakReference = new WeakReference<>(c);
 		}
 	
 		@Override
@@ -255,13 +260,9 @@ public class Main2Activity extends Activity {
 				
 				Log.d("post","Output:"+responseOutput.toString());
 				
-				JSONObject dailyRecJson = new JSONObject(responseOutput.toString());
+				dailyRecJson = new JSONObject(responseOutput.toString());
 				Log.d("post","Rec-Type:"+dailyRecJson.get("recommendation_type"));
-				JSONArray dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
-				dailyRecom_arrl.clear();
-				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
-					dailyRecom_arrl.add(dailyRecsArrJson.getString(dailyRecIndex));
-				}
+				
 				
 			} catch (IOException | JSONException e)	{
 				e.printStackTrace();
@@ -275,8 +276,23 @@ public class Main2Activity extends Activity {
 	
 		@Override
 		protected void onPostExecute(Void aVoid) {
-			dailyRecomAdapter.notifyDataSetChanged();
-			Toast.makeText(context, "Updated recommendations",Toast.LENGTH_SHORT).show();
+    		
+    		Main2Activity main2Activity = main2ActivityWeakReference.get();
+    		if(main2Activity==null || main2Activity.isFinishing())
+    			return;
+			
+			main2Activity.dailyRecom_arrl.clear();
+			try {
+				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
+				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
+					main2Activity.dailyRecom_arrl.add(dailyRecsArrJson.getString(dailyRecIndex));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			main2Activity.dailyRecomAdapter.notifyDataSetChanged();
+			//Toast.makeText(context, "Updated recommendations",Toast.LENGTH_SHORT).show();
     		super.onPostExecute(aVoid);
 		}
 	}
