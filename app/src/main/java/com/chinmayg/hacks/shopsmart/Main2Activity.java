@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class Main2Activity extends Activity {
 
     ListView dailyRecom;
-    RecyclerView topPicks2;
+    RecyclerView rv_topPicks;
     RecyclerView.LayoutManager topPicksLM;
     RecyclerView.Adapter topPicksAd;
     boolean isDailyRecomExpanded;
@@ -54,14 +54,14 @@ public class Main2Activity extends Activity {
 	
 		new PostRecomm(this).execute();
         
-        topPicks2 = findViewById(R.id.top_picks);
+        rv_topPicks = findViewById(R.id.top_picks);
 		//dynaRecos.setHasFixedSize(true);
 		topPicksLM = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 		LinearLayoutManager llm = new LinearLayoutManager(Main2Activity.this, LinearLayoutManager.HORIZONTAL, false);
-		topPicks2.setLayoutManager(topPicksLM);
-		topPicks2.setLayoutManager(llm);
+		rv_topPicks.setLayoutManager(topPicksLM);
+		rv_topPicks.setLayoutManager(llm);
 		topPicksAd = new TopPicksAdapter(Main2Activity.this, topPicks_arrl);
-		topPicks2.setAdapter(topPicksAd);
+		rv_topPicks.setAdapter(topPicksAd);
 	
 		ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1);
 		ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1);
@@ -71,7 +71,7 @@ public class Main2Activity extends Activity {
 		topPicks_arrl.add(si3);
 		
         topPicksAdapter = new TopPicksAdapter(this, topPicks_arrl);
-        topPicks2.setAdapter(topPicksAdapter);
+        rv_topPicks.setAdapter(topPicksAdapter);
 
 
         final EditText addSearch = findViewById(R.id.search_box);
@@ -272,6 +272,93 @@ public class Main2Activity extends Activity {
 			main2Activity.dailyRecomAdapter.notifyDataSetChanged();
 			//Toast.makeText(context, "Updated recommendations",Toast.LENGTH_SHORT).show();
     		super.onPostExecute(aVoid);
+		}
+	}
+	
+	private static class PostTopPicks extends AsyncTask<String,Void, Void>{
+		JSONObject dailyRecJson=null;
+		JSONArray dailyRecsArrJson=null;
+		
+		private WeakReference<Main2Activity> main2ActivityWeakReference;
+		
+		public PostTopPicks(Main2Activity c)	{
+			//this.context = c;
+			main2ActivityWeakReference = new WeakReference<>(c);
+		}
+		
+		@Override
+		protected Void doInBackground(String... params) {
+			
+			HttpURLConnection conn=null;
+			try{
+				URL url = new URL("http://ec2-35-171-182-214.compute-1.amazonaws.com:3000/recommendations");
+				conn = (HttpURLConnection) url.openConnection();
+				//String urlParams = "user=chin";
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+				
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				
+				JSONObject postParams = new JSONObject();
+				postParams.put("user","chin");
+				
+				conn.connect();
+				
+				DataOutputStream dStream = new DataOutputStream(conn.getOutputStream());
+				dStream.writeBytes(postParams.toString());
+				dStream.flush();
+				dStream.close();
+				int resCode = conn.getResponseCode();
+				
+				Log.d("post","Response code: "+resCode);
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line = "";
+				StringBuilder responseOutput = new StringBuilder();
+				while((line = br.readLine()) != null ) {
+					responseOutput.append(line);
+				}
+				br.close();
+				
+				Log.d("post","Output:"+responseOutput.toString());
+				
+				dailyRecJson = new JSONObject(responseOutput.toString());
+				Log.d("post","Rec-Type:"+dailyRecJson.get("recommendation_type"));
+				
+				
+			} catch (IOException | JSONException e)	{
+				e.printStackTrace();
+			} finally {
+				if(conn!=null)
+					conn.disconnect();
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			
+			Main2Activity main2Activity = main2ActivityWeakReference.get();
+			if(main2Activity==null || main2Activity.isFinishing())
+				return;
+			
+			main2Activity.topPicks_arrl.clear();
+			try {
+				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
+				ShopItem si;
+				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
+					si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",dailyRecIndex+1);
+					main2Activity.topPicks_arrl.add(si);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			main2Activity.topPicksAdapter.notifyDataSetChanged();
+			//Toast.makeText(context, "Updated recommendations",Toast.LENGTH_SHORT).show();
+			super.onPostExecute(aVoid);
 		}
 	}
 }
