@@ -26,7 +26,7 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".CartActivity" />
-        <activity android:name=".ChecklistActivity"></activity>
+        <activity android:name=".ChecklistActivity"/>
     </application>
 
 </manifest>

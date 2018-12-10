@@ -33,13 +33,13 @@ import java.util.ArrayList;
 
 public class Main2Activity extends Activity {
 
-    ListView checklist, dailyRecom;
-    boolean isChecklistExpanded, isDailyRecomExpanded;
+    ListView topPicks, dailyRecom;
+    boolean isTopPicksExpanded, isDailyRecomExpanded;
 
-    final ArrayList<String> checklist_arrl = new ArrayList<>();
+    final ArrayList<String> topPicks_arrl = new ArrayList<>();
     final ArrayList<String> dailyRecom_arrl = new ArrayList<>();
 
-    CheckListAdapter checkListAdapter;
+    CheckListAdapter topPicksAdapter;
     DailyRecomAdapter dailyRecomAdapter;
 
     @Override
@@ -50,73 +50,53 @@ public class Main2Activity extends Activity {
 	
 		new PostRecomm(this).execute();
         
-        checklist = findViewById(R.id.checklist);
+        topPicks = findViewById(R.id.top_picks);
 
-        checklist_arrl.add("bread");
-        checklist_arrl.add("butter");
-        checklist_arrl.add("ketchup");
-        checklist_arrl.add("milk");
-        checklist_arrl.add("mixed fruit jam");
-        checklist_arrl.add("salt");
+        topPicks_arrl.add("bread");
+        topPicks_arrl.add("butter");
+        topPicks_arrl.add("ketchup");
+        topPicks_arrl.add("milk");
+        topPicks_arrl.add("mixed fruit jam");
+        topPicks_arrl.add("salt");
 
-        ViewGroup.LayoutParams params = checklist.getLayoutParams();
-        params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(checklist_arrl.size(),5);
-        checklist.setLayoutParams(params);
-        checklist.requestLayout();
-        isChecklistExpanded = false;
+        ViewGroup.LayoutParams params = topPicks.getLayoutParams();
+        params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(topPicks_arrl.size(),5);
+        topPicks.setLayoutParams(params);
+        topPicks.requestLayout();
+        isTopPicksExpanded = false;
 
-        final ImageButton expandChecklist = findViewById(R.id.expand_checklist);
-        expandChecklist.setOnClickListener(new View.OnClickListener() {
+        final ImageButton expandTopPicks = findViewById(R.id.expand_top_picks);
+        expandTopPicks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 ViewGroup.LayoutParams params;
 
-                if(!isChecklistExpanded) {
-                    params = checklist.getLayoutParams();
-                    //params.height = 110 * Math.min(checklist_arrl.size(), 10);
-                    params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(checklist_arrl.size(),10);
-                    checklist.setLayoutParams(params);
-                    checklist.requestLayout();
-                    isChecklistExpanded = true;
-                    expandChecklist.setImageDrawable(getDrawable(R.drawable.ic_collapse));
+                if(!isTopPicksExpanded) {
+                    params = topPicks.getLayoutParams();
+                    //params.height = 110 * Math.min(topPicks_arrl.size(), 10);
+                    params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(topPicks_arrl.size(),10);
+                    topPicks.setLayoutParams(params);
+                    topPicks.requestLayout();
+                    isTopPicksExpanded = true;
+                    expandTopPicks.setImageDrawable(getDrawable(R.drawable.ic_collapse));
                 }
                 else    {
-                    params = checklist.getLayoutParams();
-                    //params.height = 109 * Math.min(checklist_arrl.size(), 5);
-                    params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(checklist_arrl.size(),5);
-                    checklist.setLayoutParams(params);
-                    checklist.requestLayout();
-                    isChecklistExpanded = false;
-                    expandChecklist.setImageDrawable(getDrawable(R.drawable.ic_expand));
+                    params = topPicks.getLayoutParams();
+                    //params.height = 109 * Math.min(topPicks_arrl.size(), 5);
+                    params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(topPicks_arrl.size(),5);
+                    topPicks.setLayoutParams(params);
+                    topPicks.requestLayout();
+                    isTopPicksExpanded = false;
+                    expandTopPicks.setImageDrawable(getDrawable(R.drawable.ic_expand));
                 }
             }
         });
-        checkListAdapter = new CheckListAdapter(this, checklist_arrl);
-        checklist.setAdapter(checkListAdapter);
+        topPicksAdapter = new CheckListAdapter(this, topPicks_arrl);
+        topPicks.setAdapter(topPicksAdapter);
 
 
         final EditText addSearch = findViewById(R.id.search_box);
-        ImageButton add2checklist = findViewById(R.id.list_add);
-        add2checklist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newItem = addSearch.getText().toString().trim();
-
-                if(newItem.isEmpty())
-                    Toast.makeText(getApplicationContext(),"Please enter an item",Toast.LENGTH_SHORT).show();
-                else {
-                    checklist_arrl.add(newItem);
-                    checkListAdapter.notifyDataSetChanged();
-
-                    addSearch.setText("");
-                    Toast.makeText(getApplicationContext(), "Added " + newItem, Toast.LENGTH_SHORT).show();
-
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-            }
-        });
 
         ImageButton btnSearch = findViewById(R.id.btn_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -180,28 +160,7 @@ public class Main2Activity extends Activity {
 
     }
 
-    public void add2Checklist(View v) {
-        LinearLayout parentRow = (LinearLayout) v.getParent();
-        TextView child = (TextView)parentRow.getChildAt(1);
 
-        String newItem = child.getText().toString().trim();
-
-        checklist_arrl.add(newItem);
-        checkListAdapter.notifyDataSetChanged();
-        ViewGroup.LayoutParams params = checklist.getLayoutParams();
-        params.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(checklist_arrl.size(),5);
-        checklist.setLayoutParams(params);
-        checklist.requestLayout();
-
-        dailyRecom_arrl.remove(newItem);
-        dailyRecomAdapter.notifyDataSetChanged();
-        ViewGroup.LayoutParams paramsRecom = dailyRecom.getLayoutParams();
-        paramsRecom.height = 109*Math.min(dailyRecom_arrl.size(),5);
-        dailyRecom.setLayoutParams(paramsRecom);
-        dailyRecom.requestLayout();
-
-        Toast.makeText(getApplicationContext(),"Added"+newItem,Toast.LENGTH_SHORT).show();
-    }
 
     public void searchItem(View v)  {
         LinearLayout parentRow = (LinearLayout) v.getParent();
@@ -225,6 +184,9 @@ public class Main2Activity extends Activity {
 
         switch (item.getItemId())   {
             case R.id.item_main:    {
+            	
+            	Intent clIntent = new Intent(this, ChecklistActivity.class);
+            	startActivity(clIntent);
 
                 return true;
             }

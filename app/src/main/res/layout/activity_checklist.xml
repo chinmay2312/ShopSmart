@@ -47,8 +47,8 @@
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toRightOf="parent"
 
-        android:contentDescription="Button to add item to checklist"
-        android:src="@drawable/ic_cart"
+        android:contentDescription="@string/list_add_desc"
+        android:src="@android:drawable/ic_input_add"
         android:backgroundTint="@android:color/holo_red_light"
 
         android:onClick="add2Checklist"/>
