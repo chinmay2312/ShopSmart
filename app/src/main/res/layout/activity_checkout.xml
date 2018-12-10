@@ -101,7 +101,7 @@
                     android:textSize="25sp"
                     android:text="Pickup Slot: "/>
 
-                <Spinner
+                <Spinner                    android:id="@+id/time_slots"
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
 
