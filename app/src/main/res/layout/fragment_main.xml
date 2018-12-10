@@ -30,7 +30,7 @@
             android:layout_weight="6"
             android:autofillHints=""
             android:gravity="center"
-            android:hint="@string/add_or_search_hint"
+            android:hint="@string/add_hint"
             android:inputType="text"/>
         <ImageButton
             android:id="@+id/btn_search"
