@@ -159,9 +159,7 @@ public class Main2Activity extends Activity {
 
 
     }
-
-
-
+    
     public void searchItem(View v)  {
         LinearLayout parentRow = (LinearLayout) v.getParent();
         TextView child = (TextView)parentRow.getChildAt(1);

@@ -1,17 +1,40 @@
 package com.chinmayg.hacks.shopsmart;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class ShopItem {
     private float shopPrice;
     private int offerDaysRemaining;
     private String itemShopName;
     private String shopName;
-
+	private int quantity;
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+		
     public ShopItem(float shopPrice, int offerDaysRemaining, String itemShopName, String shopName) {
         this.shopName = shopName;
-        this.shopPrice = shopPrice;
-        this.offerDaysRemaining = offerDaysRemaining;
+        //this.shopPrice = shopPrice;
+		this.shopPrice = (float) Math.round(shopPrice*100f)/100f;
+		this.offerDaysRemaining = offerDaysRemaining;
         this.itemShopName = itemShopName;
+        this.quantity = 1;
     }
+    public ShopItem(float shopPrice, int offerDaysRemaining, String itemShopName, String shopName, int quantity)	{
+		this.shopName = shopName;
+		//this.shopPrice = shopPrice;
+		this.offerDaysRemaining = offerDaysRemaining;
+		this.itemShopName = itemShopName;
+		this.quantity = quantity;
+		
+		this.shopPrice = (float) Math.round(shopPrice*100f)/100f;
+	}
 
     public float getShopPrice() {
         return shopPrice;

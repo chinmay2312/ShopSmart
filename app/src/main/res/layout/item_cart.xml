@@ -59,14 +59,16 @@
         app:layout_constraintRight_toLeftOf="@id/guideline3"
         app:layout_constraintLeft_toRightOf="@id/guideline2">
 
-        <Button            android:id="@+id/btn_addQUant"
+        <Button            android:id="@+id/btn_addQuant"
             android:layout_width="match_parent"
             android:layout_height="25dp"
 
             android:gravity="center"
             android:padding="0dp"
             android:text="+"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+
+            android:onClick="addQuant"/>
 
         <TextView            android:id="@+id/itemQuant_cart"
             android:layout_width="match_parent"
@@ -85,7 +87,9 @@
             android:padding="0dp"
             android:text="-"
             android:gravity="center"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+
+            android:onClick="subQuant"/>
 
     </LinearLayout>
 
@@ -108,7 +112,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 </android.support.constraint.ConstraintLayout>

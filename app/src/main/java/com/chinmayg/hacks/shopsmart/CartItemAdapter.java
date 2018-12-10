@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,8 +39,17 @@ public class CartItemAdapter extends ArrayAdapter {
         daysRem.setText(cartItemList.get(pos).getOfferDaysRemaining()+" day(s) remaining");
 
         TextView itemPrice = convertView.findViewById(R.id.shopPrice_cart);
-        itemPrice.setText("$"+cartItemList.get(pos).getShopPrice());
-
+        itemPrice.setText("$"+Math.round(cartItemList.get(pos).getShopPrice()*cartItemList.get(pos).getQuantity()*100f)/100f);
+        
+        TextView itemQuant = convertView.findViewById(R.id.itemQuant_cart);
+        itemQuant.setText(""+cartItemList.get(pos).getQuantity());
+	
+		Button btnAddQuant = convertView.findViewById(R.id.btn_addQuant);
+		btnAddQuant.setTag(pos);
+		
+		Button btnSubQuant = convertView.findViewById(R.id.btn_subQuant);
+		btnSubQuant.setTag(pos);
+		
         return convertView;//super.getView(pos, convertView, parent);
     }
 }
