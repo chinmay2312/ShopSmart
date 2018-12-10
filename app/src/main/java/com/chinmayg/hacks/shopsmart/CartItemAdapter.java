@@ -31,9 +31,9 @@ public class CartItemAdapter extends ArrayAdapter {
         TextView tvitemName = convertView.findViewById(R.id.itemShopName_cart);
         tvitemName.setText(cartItemList.get(pos).getItemShopName());
 
-        TextView tvshopName = convertView.findViewById(R.id.textShop_cart);
+        /*TextView tvshopName = convertView.findViewById(R.id.textShop_cart);
         tvshopName.setText(cartItemList.get(pos).getShopName());
-
+*/
         TextView daysRem = convertView.findViewById(R.id.textOfferDaysRemaining_cart);
         daysRem.setText(cartItemList.get(pos).getOfferDaysRemaining()+" day(s) remaining");
 
