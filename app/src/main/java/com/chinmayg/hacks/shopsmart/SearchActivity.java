@@ -44,28 +44,6 @@ public class SearchActivity extends Activity {
     ArrayList<String> srchResArrL;
     
     EditText etSearch;
-
-    String[] res = {
-            "Apple",
-            "Ripe apples",
-            "Chocolate crispies",
-            "Hershey's chocolate",
-            "Banana",
-            "Banana flavored yoghurt",
-            "Grapes",
-            "Guava",
-            "Kiwi",
-            "Lychee",
-            "Mango",
-            "Melon",
-            "Orange",
-            "Minute maid : Orange flavor",
-            "Papaya", "Pineapple",
-            "whole milk",
-            "Kirkland 2% fat milk",
-            "crystal sugar",
-            "Water Melon"
-    };
 	
 	ArrayAdapter<String> adapter;
 	
@@ -85,8 +63,7 @@ public class SearchActivity extends Activity {
 			new PostSearch(this, srchStr).execute();
 		}
         
-
-
+		
         siArrL = new ArrayList<>();
         ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco");
         siArrL.add(si);
