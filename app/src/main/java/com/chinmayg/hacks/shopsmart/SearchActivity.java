@@ -80,7 +80,11 @@ public class SearchActivity extends Activity {
 
         Intent srchQryIntent = getIntent();
         String srchStr = srchQryIntent.getStringExtra("SEARCH_STRING");
-        etSearch.setText(srchStr);
+        if(!srchStr.trim().isEmpty()) {
+			etSearch.setText(srchStr);
+			new PostSearch(this, srchStr).execute();
+		}
+        
 
 
         siArrL = new ArrayList<>();
