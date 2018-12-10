@@ -2,10 +2,12 @@ package com.chinmayg.hacks.shopsmart;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,6 +39,15 @@ public class ChecklistActivity extends Activity {
 		lv_checklist.setAdapter(cl_ad);
 		
 		//getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		
+		lv_checklist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+				Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+				searchIntent.putExtra("SEARCH_STRING",checklist_arrl.get(pos));
+				startActivity(searchIntent);
+			}
+		});
 	}
 	
 	public void add2Checklist(View v) {

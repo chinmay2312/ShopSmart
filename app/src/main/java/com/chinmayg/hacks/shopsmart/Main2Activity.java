@@ -179,6 +179,7 @@ public class Main2Activity extends Activity {
             case R.id.item_search:    {
 
                 Intent searchIntent = new Intent(this, SearchActivity.class);
+                searchIntent.putExtra("SEARCH_STRING","");
                 startActivity(searchIntent);
 
                 return true;
