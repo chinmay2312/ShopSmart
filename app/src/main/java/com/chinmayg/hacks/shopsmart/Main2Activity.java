@@ -34,18 +34,13 @@ import java.util.ArrayList;
 
 public class Main2Activity extends Activity {
 
-    ListView dailyRecom;
-    RecyclerView rv_topPicks;
-    RecyclerView.LayoutManager topPicksLM;
-    RecyclerView.Adapter topPicksAd;
-    boolean isDailyRecomExpanded;
-
+    RecyclerView rv_topPicks, rv_dailyRecom;
+    RecyclerView.LayoutManager topPicksLM, dailyRecomLM;
+    RecyclerView.Adapter topPicksAd, dailyRecomAdapter;
+    
     final ArrayList<ShopItem> topPicks_arrl = new ArrayList<>();
-    final ArrayList<String> dailyRecom_arrl = new ArrayList<>();
-
-    TopPicksAdapter topPicksAdapter;
-    DailyRecomAdapter dailyRecomAdapter;
-
+    final ArrayList<ShopItem> dailyRecom_arrl = new ArrayList<>();
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +65,6 @@ public class Main2Activity extends Activity {
 		topPicks_arrl.add(si2);
 		topPicks_arrl.add(si3);
 		
-        topPicksAdapter = new TopPicksAdapter(this, topPicks_arrl);
-        rv_topPicks.setAdapter(topPicksAdapter);
-
-
         final EditText addSearch = findViewById(R.id.search_box);
 
         ImageButton btnSearch = findViewById(R.id.btn_search);
@@ -93,48 +84,19 @@ public class Main2Activity extends Activity {
         });
 
 
-        dailyRecom = findViewById(R.id.daily_recom);
-        dailyRecom_arrl.add("jelly");
+        rv_dailyRecom = findViewById(R.id.daily_recom);
+        dailyRecomLM = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager llm2 = new LinearLayoutManager(Main2Activity.this, LinearLayoutManager.HORIZONTAL, false);
+        rv_dailyRecom.setLayoutManager(llm2);
+        /*dailyRecom_arrl.add("jelly");
         dailyRecom_arrl.add("cookies");
         dailyRecom_arrl.add("sugar");
-        dailyRecom_arrl.add("coffee");
-        dailyRecomAdapter = new DailyRecomAdapter(this, dailyRecom_arrl);
-        dailyRecom.setAdapter(dailyRecomAdapter);
-
-        ViewGroup.LayoutParams paramsRecom = dailyRecom.getLayoutParams();
-        paramsRecom.height = 109*Math.min(dailyRecom_arrl.size(),5);
-        dailyRecom.setLayoutParams(paramsRecom);
-        dailyRecom.requestLayout();
-        isDailyRecomExpanded = false;
-
-        final ImageButton expandDailyRecoms = findViewById(R.id.expand_daily_recoms);
-        expandDailyRecoms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ViewGroup.LayoutParams paramsRecom;
-
-                if(!isDailyRecomExpanded) {
-                    paramsRecom = dailyRecom.getLayoutParams();
-                    //paramsRecom.height = 109*Math.min(dailyRecom_arrl.size(),15);
-                    paramsRecom.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(dailyRecom_arrl.size(),10);
-                    dailyRecom.setLayoutParams(paramsRecom);
-                    dailyRecom.requestLayout();
-                    isDailyRecomExpanded = true;
-                    expandDailyRecoms.setImageDrawable(getDrawable(R.drawable.ic_collapse));
-                }
-                else    {
-                    paramsRecom = dailyRecom.getLayoutParams();
-                    //paramsRecom.height = 109*Math.min(dailyRecom_arrl.size(),5);
-                    paramsRecom.height = Math.round(40*getResources().getDisplayMetrics().density)*Math.min(dailyRecom_arrl.size(),5);
-                    dailyRecom.setLayoutParams(paramsRecom);
-                    dailyRecom.requestLayout();
-                    isDailyRecomExpanded = false;
-                    expandDailyRecoms.setImageDrawable(getDrawable(R.drawable.ic_expand));
-                }
-            }
-        });
-
+        dailyRecom_arrl.add("coffee");*/
+        dailyRecom_arrl.add(si);
+		dailyRecom_arrl.add(si2);
+		dailyRecom_arrl.add(si3);
+        dailyRecomAdapter = new TopPicksAdapter(this, dailyRecom_arrl);
+        rv_dailyRecom.setAdapter(dailyRecomAdapter);
 
     }
     
@@ -262,8 +224,10 @@ public class Main2Activity extends Activity {
 			main2Activity.dailyRecom_arrl.clear();
 			try {
 				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
+				ShopItem si;
 				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
-					main2Activity.dailyRecom_arrl.add(dailyRecsArrJson.getString(dailyRecIndex));
+					si = new ShopItem(5.8f, 3, dailyRecsArrJson.getString(dailyRecIndex),"Jewel Osco",dailyRecIndex+1);
+					main2Activity.dailyRecom_arrl.add(si);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -356,7 +320,7 @@ public class Main2Activity extends Activity {
 				e.printStackTrace();
 			}
 			
-			main2Activity.topPicksAdapter.notifyDataSetChanged();
+			main2Activity.topPicksAd.notifyDataSetChanged();
 			//Toast.makeText(context, "Updated recommendations",Toast.LENGTH_SHORT).show();
 			super.onPostExecute(aVoid);
 		}

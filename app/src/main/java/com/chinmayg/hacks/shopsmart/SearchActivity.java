@@ -128,7 +128,6 @@ public class SearchActivity extends Activity {
 		
 			}
 		};
-        
         etSearch.addTextChangedListener(tw);
 
     }
