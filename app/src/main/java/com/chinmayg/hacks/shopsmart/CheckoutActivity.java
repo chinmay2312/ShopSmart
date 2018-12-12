@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CheckoutActivity extends Activity {
 	
@@ -69,10 +70,12 @@ public class CheckoutActivity extends Activity {
 		placeOrder.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-			
+				Intent confirmIntent = new Intent(CheckoutActivity.this, ConfirmActivity.class);
+				Random rnd = new Random();
+				int n = 100000 + rnd.nextInt(900000);
+				confirmIntent.putExtra("CONFIRM_CODE", n);
+				startActivity(confirmIntent);
 			}
-			
-			
 		});
 		
 	}
