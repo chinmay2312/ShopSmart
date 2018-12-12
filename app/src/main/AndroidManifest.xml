@@ -27,7 +27,8 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".ChecklistActivity" />
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".CheckoutActivity" />
+        <activity android:name=".ConfirmActivity"></activity>
     </application>
 
 </manifest>
