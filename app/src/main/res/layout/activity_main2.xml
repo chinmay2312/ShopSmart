@@ -42,11 +42,23 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintTop_toBottomOf="@id/ll_add_search" />
 
+    <TextView
+        android:id="@+id/tv_lbl_toppicks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toTopOf="@id/top_picks"
+        app:layout_constraintTop_toBottomOf="@id/v_sep_1"
+
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Top Picks"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/top_picks"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintTop_toBottomOf="@id/v_sep_1"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_lbl_toppicks"/>
 
     <View
         android:id="@+id/v_sep_2"
@@ -56,10 +68,22 @@
 
         app:layout_constraintTop_toBottomOf="@id/top_picks" />
 
+    <TextView
+        android:id="@+id/tv_lbl_dailyrecom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toTopOf="@id/daily_recom"
+        app:layout_constraintTop_toBottomOf="@id/v_sep_2"
+
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Daily Recommendations"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/daily_recom"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintTop_toBottomOf="@id/v_sep_2"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_lbl_dailyrecom"/>
 
 </android.support.constraint.ConstraintLayout>

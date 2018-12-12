@@ -88,10 +88,6 @@ public class Main2Activity extends Activity {
         dailyRecomLM = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager llm2 = new LinearLayoutManager(Main2Activity.this, LinearLayoutManager.HORIZONTAL, false);
         rv_dailyRecom.setLayoutManager(llm2);
-        /*dailyRecom_arrl.add("jelly");
-        dailyRecom_arrl.add("cookies");
-        dailyRecom_arrl.add("sugar");
-        dailyRecom_arrl.add("coffee");*/
         dailyRecom_arrl.add(si);
 		dailyRecom_arrl.add(si2);
 		dailyRecom_arrl.add(si3);
