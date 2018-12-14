@@ -14,7 +14,7 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_home"
         android:checked="true"
-        android:title="Main"/>
+        android:title="List"/>
     <item
         android:id="@+id/item_search"
         app:showAsAction="always"

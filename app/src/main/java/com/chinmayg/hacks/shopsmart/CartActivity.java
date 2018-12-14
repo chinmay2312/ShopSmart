@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,16 @@ public class CartActivity extends Activity {
 
         cartItemAdapter = new CartItemAdapter(this, cart_list);
         lvcart.setAdapter(cartItemAdapter);
+        
+        lvcart.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+				ShopItem remSi = cart_list.remove(i);
+				cartItemAdapter.notifyDataSetChanged();
+				Toast.makeText(getApplicationContext(), "Removed " + remSi.getItemShopName(), Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		});
 	
 		cartTotal.setText("$"+getCartTotal());
 

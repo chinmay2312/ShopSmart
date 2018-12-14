@@ -35,16 +35,6 @@
                     android:drawableLeft="@drawable/ic_search_black_24dp"
                     android:inputType="none" />
 
-                <!--<ImageButton
-                    android:id="@+id/btn_search"
-                    android:layout_width="0dp"
-
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#0fff"
-                    android:contentDescription="@string/btn_search_desc"
-                    android:src="@android:drawable/ic_search_category_default" />-->
-
             </LinearLayout>
 
             <View

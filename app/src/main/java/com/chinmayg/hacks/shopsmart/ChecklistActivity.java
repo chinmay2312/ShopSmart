@@ -36,6 +36,8 @@ public class ChecklistActivity extends Activity {
 		et_checklist =findViewById(R.id.et_checklist);
 		lv_checklist = findViewById(R.id.checklist);
 		
+		lv_checklist.setEmptyView(findViewById(R.id.emptyList));
+		
 		checklist_arrl = new ArrayList<>();
 		
 		checklist_arrl.add("bread");
