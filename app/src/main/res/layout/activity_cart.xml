@@ -6,14 +6,25 @@
     android:layout_height="match_parent"
     android:showDividers="middle"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:layout_marginBottom="10dp"
     android:background="#fff"
     tools:context=".CartActivity">
+
+    <TextView
+        android:id="@+id/cart_shopname"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingLeft="35dp"
+        android:paddingTop="5dp"
+        android:textSize="20sp"
+        android:text="Shop Name"
+        android:gravity="center_vertical"
+        android:layout_weight="1"/>
 
     <ListView        android:id="@+id/cart_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="6"
         android:divider="#000"
         android:dividerHeight="0.5dp"
         android:paddingHorizontal="15dp"/>
@@ -38,7 +49,8 @@
         <TextView        android:id="@+id/cart_total"
             android:textSize="25sp"
             android:textColor="#000"
-            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
 

@@ -19,6 +19,7 @@ public class CartActivity extends Activity {
     ListView lvcart;
     TextView cartTotal;
 	CartItemAdapter cartItemAdapter;
+	TextView tvCartShopName;
 	
 	TextView btn_addQuant,btn_subQuant;
 
@@ -32,6 +33,7 @@ public class CartActivity extends Activity {
         setTitle("Cart for Costco");
 
         lvcart = findViewById(R.id.cart_lv);
+        tvCartShopName = findViewById(R.id.cart_shopname);
         cartTotal = findViewById(R.id.cart_total);
         btn_addQuant = findViewById(R.id.btn_addQuant);
         btn_subQuant = findViewById(R.id.btn_subQuant);
@@ -64,7 +66,9 @@ public class CartActivity extends Activity {
 				startActivity(checkoutIntent);
 			}
 		});
-    
+  
+  
+		tvCartShopName.setText(cart_list.get(0).getShopName());
     }
     
     void updateQuantity(char action, int pos)	{

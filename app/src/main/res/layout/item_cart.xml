@@ -1,119 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="100dp"
     android:orientation="horizontal"
-    android:padding="5dp"
+    android:paddingVertical="5dp"
     android:background="#FFF">
 
-    <ImageView
-        android:id="@+id/iv_itempic_cart"
-        android:layout_width="50dp"
+    <ImageView        android:id="@+id/iv_itempic_cart"
+        android:layout_width="0dp"
+        android:layout_weight="3"
         android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/iv_itempic_cart"
-        app:layout_constraintRight_toLeftOf="@id/guideline2"
-        app:layout_constraintTop_toTopOf="parent">
-        <!--<TextView
-            android:id="@+id/textShop_cart"
-            android:gravity="top"
-            android:textSize="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Shop Name"/>-->
-
-        <TextView
-            android:id="@+id/itemShopName_cart"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-
-            android:gravity="center"
-            android:textColor="#000"
-            android:text="Name of item in shop"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <LinearLayout
-        android:id="@+id/ll_itemQuant"
+    <TextView        android:id="@+id/itemShopName_cart"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_weight="7"
 
-        app:layout_constraintRight_toLeftOf="@id/guideline3"
-        app:layout_constraintLeft_toRightOf="@id/guideline2">
+        android:gravity="center"
+        android:paddingHorizontal="2dp"
+        android:textColor="#000"
+        android:text="Name of item in shop"
+        android:textSize="18sp" />
 
-        <TextView            android:id="@+id/btn_addQuant"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+    <TextView            android:id="@+id/btn_addQuant"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="2dp"
 
-            android:gravity="center_horizontal|top"
-            android:text="+"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="21sp"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="25sp"
 
-            android:onClick="addQuant"/>
+        android:onClick="addQuant"/>
 
-        <TextView            android:id="@+id/itemQuant_cart"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+    <TextView            android:id="@+id/itemQuant_cart"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
 
-            android:gravity="center_horizontal|bottom"
+        android:gravity="center"
 
-            android:text="1"
-            android:textSize="20sp" />
+        android:text="1"
+        android:textColor="#000"
+        android:textSize="18sp" />
 
-        <TextView            android:id="@+id/btn_subQuant"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+    <TextView            android:id="@+id/btn_subQuant"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="2dp"
 
-            android:text="-"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_red_light"
-            android:gravity="top|center_horizontal"
-            android:textSize="21sp"
+        android:text="-"
+        android:textColor="@android:color/holo_red_light"
+        android:gravity="center"
+        android:textSize="45sp"
 
-            android:onClick="subQuant"/>
+        android:onClick="subQuant"/>
 
-    </LinearLayout>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
-
-    <TextView
-        android:id="@+id/shopPrice_cart"
-        android:layout_width="0px"
+    <TextView        android:id="@+id/shopPrice_cart"
+        android:layout_width="0dp"
+        android:layout_weight="3"
         android:layout_height="match_parent"
 
         android:text="$6.0"
         android:textColor="#000"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/guideline3"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp"
+        android:gravity="center" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
