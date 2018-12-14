@@ -3,6 +3,7 @@ package com.chinmayg.hacks.shopsmart;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ public class CheckoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ef2d26")));
 		
 		Intent intent = getIntent();
 		String cartTotal = "$"+intent.getFloatExtra("CART_TOTAL",0.0f);

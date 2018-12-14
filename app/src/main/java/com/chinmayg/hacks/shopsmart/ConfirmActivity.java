@@ -2,6 +2,8 @@ package com.chinmayg.hacks.shopsmart;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,7 @@ public class ConfirmActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_confirm);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ee0202")));
 		
 		tv_confCode = findViewById(R.id.tv_confCode);
 		
