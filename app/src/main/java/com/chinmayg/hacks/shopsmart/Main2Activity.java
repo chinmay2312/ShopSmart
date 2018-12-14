@@ -71,22 +71,6 @@ public class Main2Activity extends Activity {
 		topPicks_arrl.add(si3);
 		
         EditText addSearch = findViewById(R.id.search_box);
-
-        /*ImageButton btnSearch = findViewById(R.id.btn_search);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newItem = addSearch.getText().toString().trim();
-
-                if(newItem.isEmpty())
-                    Toast.makeText(getApplicationContext(),"Please enter a search string",Toast.LENGTH_SHORT).show();
-                else    {
-                    Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
-                    searchIntent.putExtra("SEARCH_STRING",newItem);
-                    startActivity(searchIntent);
-                }
-            }
-        });*/
         addSearch.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

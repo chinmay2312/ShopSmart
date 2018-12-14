@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="3dp"
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
@@ -14,6 +16,7 @@
         android:gravity="center"
         android:layout_weight="1"
         android:hint="Search"
+        android:drawableLeft="@drawable/ic_search_black_24dp"
         android:inputType="text"
         />
     <!--<AutoCompleteTextView
@@ -34,7 +37,5 @@
         android:layout_height="0dp"
         android:layout_weight="2">
     </android.support.v7.widget.RecyclerView>
-
-
 
 </LinearLayout>

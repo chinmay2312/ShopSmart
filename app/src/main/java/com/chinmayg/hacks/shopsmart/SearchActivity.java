@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -41,7 +44,7 @@ public class SearchActivity extends Activity {
     ArrayList<ShopItem> siArrL;
 
     ListView srchRes;
-    ArrayList<String> srchResArrL;
+    ArrayList<ShopItem> srchResArrL;
     
     EditText etSearch;
 	
@@ -51,7 +54,7 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-		
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ef2d26")));
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		Log.d("searchactivity_create",""+this.getClass().toString());
         etSearch = findViewById(R.id.et_search);
@@ -62,14 +65,15 @@ public class SearchActivity extends Activity {
 			etSearch.setText(srchStr);
 			new PostSearch(this, srchStr).execute();
 		}
-        
+		
+		String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 		
         siArrL = new ArrayList<>();
-        ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco");
+        ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1, imgUrl);
         siArrL.add(si);
-        ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's");
+        ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's", 1,imgUrl);
         siArrL.add(si2);
-        ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco");
+        ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1,imgUrl);
         siArrL.add(si3);
 
         dynaRecos = findViewById(R.id.dyna_recos);
@@ -96,13 +100,13 @@ public class SearchActivity extends Activity {
 
         srchRes = findViewById(R.id.search_res_list);
         srchResArrL = new ArrayList<>();
-        srchResArrL.add("banana");
-        srchResArrL.add("baking soda");
+        srchResArrL.add(si);
+        /*srchResArrL.add("baking soda");
 		srchResArrL.add("search result 1");
-		srchResArrL.add("search result 2");
+		srchResArrL.add("search result 2");*/
 		
-		adapter =new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, srchResArrL);
-		
+		//adapter =new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, srchResArrL);
+		adapter = new SearchItemAdapter(this, srchResArrL);
 		srchRes.setAdapter(adapter);
         
         TextWatcher tw = new TextWatcher() {
@@ -145,12 +149,7 @@ public class SearchActivity extends Activity {
         private WeakReference<SearchActivity> searchActivityWeakReference;
         private  WeakReference<Application> appRef;
         
-        public PostSearch(SearchActivity context, Application conApp)	{
-            //this.context = c;
-			searchActivityWeakReference = new WeakReference<>(context);
-			appRef = new WeakReference<>(conApp);
-        }
-		public PostSearch(SearchActivity context, String srchStr)	{
+        public PostSearch(SearchActivity context, String srchStr)	{
 			//this.context = c;
 			this.srchStr = srchStr;
 			searchActivityWeakReference = new WeakReference<>(context);
@@ -219,8 +218,12 @@ public class SearchActivity extends Activity {
 			//Log.d("post_search","Json_arr="+dailyRecsArrJson.toString());
 			if(dailyRecsArrJson!=null) {
 				try {
+					ShopItem si;
 					for (int dailyRecIndex = 0; dailyRecIndex < dailyRecsArrJson.length(); dailyRecIndex++) {
-						searchActivity.srchResArrL.add(dailyRecsArrJson.getString(dailyRecIndex));
+						//searchActivity.srchResArrL.add(dailyRecsArrJson.getString(dailyRecIndex));
+						String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
+						si = new ShopItem(5.8f, 3, dailyRecsArrJson.getString(dailyRecIndex),"Jewel Osco",1, imgUrl);
+						searchActivity.srchResArrL.add(si);
 						//Log.d("post_search",searchActivity.srchResArrL.get(0));
 					}
 				} catch (JSONException e)	{

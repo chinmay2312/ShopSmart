@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,11 +19,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CartItemAdapter extends ArrayAdapter {
+public class SearchItemAdapter extends ArrayAdapter {
 
     private ArrayList<ShopItem> cartItemList;
 
-    public CartItemAdapter(@NonNull Context context, ArrayList<ShopItem> cartItemList) {
+    public SearchItemAdapter(@NonNull Context context, ArrayList<ShopItem> cartItemList) {
         super(context,0, cartItemList);
 
         this.cartItemList = cartItemList;
@@ -35,30 +34,21 @@ public class CartItemAdapter extends ArrayAdapter {
     public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         if(convertView==null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_cart, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_search, parent, false);
 
-        TextView tvitemName = convertView.findViewById(R.id.itemShopName_cart);
+        TextView tvitemName = convertView.findViewById(R.id.tv_itemname_search);
         tvitemName.setText(cartItemList.get(pos).getItemShopName());
         
-        ImageView iv_itemPicCart = convertView.findViewById(R.id.iv_itempic_cart);
+        ImageView iv_itemPicCart = convertView.findViewById(R.id.iv_itemimg_search);
         new ShowImage(iv_itemPicCart).execute(cartItemList.get(pos).getImgUrl());
 
-        /*TextView tvshopName = convertView.findViewById(R.id.textShop_cart);
-        tvshopName.setText(cartItemList.get(pos).getShopName());*/
+        TextView tvshopName = convertView.findViewById(R.id.tv_shopname_search);
+        tvshopName.setText(cartItemList.get(pos).getShopName());
         
-        TextView itemPrice = convertView.findViewById(R.id.shopPrice_cart);
+        TextView itemPrice = convertView.findViewById(R.id.tv_price_search);
         itemPrice.setText("$"+Math.round(cartItemList.get(pos).getShopPrice()*cartItemList.get(pos).getQuantity()*100f)/100f);
         
-        TextView itemQuant = convertView.findViewById(R.id.itemQuant_cart);
-        itemQuant.setText(""+cartItemList.get(pos).getQuantity());
-	
-		TextView btnAddQuant = convertView.findViewById(R.id.btn_addQuant);
-		btnAddQuant.setTag(pos);
-		
-		TextView btnSubQuant = convertView.findViewById(R.id.btn_subQuant);
-		btnSubQuant.setTag(pos);
-		
-        return convertView;//super.getView(pos, convertView, parent);
+        return convertView;
     }
 	
 	private static class ShowImage extends AsyncTask<String,Void, Void> {
@@ -101,6 +91,7 @@ public class CartItemAdapter extends ArrayAdapter {
 				ImageView imageView = imageViewWeakReference.get();
 				if (imageView == null)
 					return;
+				
 				
 				imageView.setImageDrawable(d);
 				
