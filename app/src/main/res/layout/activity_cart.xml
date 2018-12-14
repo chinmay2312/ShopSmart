@@ -5,29 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:showDividers="middle"
-    android:divider="?android:listDivider"
     android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:background="#fff"
     tools:context=".CartActivity">
 
     <ListView        android:id="@+id/cart_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"/>
+        android:layout_weight="7"
+        android:divider="#000"
+        android:dividerHeight="0.5dp"
+        android:paddingHorizontal="15dp"/>
 
-
-    <TextView        android:id="@+id/cart_total"
-        android:textSize="30sp"
-        android:gravity="center_horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:paddingHorizontal="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Total"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:paddingHorizontal="15dp"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView        android:id="@+id/cart_total"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_alignParentRight="true"
+
+
+            android:paddingHorizontal="10dp"/>
+
+    </RelativeLayout>
 
     <Button        android:id="@+id/btn_checkout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
 
+        android:background="#ef2d26"
         android:textStyle="bold"
+        android:textColor="#fff"
         android:text="Continue to checkout ->"
         android:textSize="20dp"/>
 

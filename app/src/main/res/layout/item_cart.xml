@@ -2,10 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="90dp"
     android:orientation="horizontal"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp">
+    android:padding="5dp"
+    android:background="#FFF">
+
+    <ImageView
+        android:id="@+id/iv_itempic_cart"
+        android:layout_width="50dp"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="0px"
@@ -13,7 +18,7 @@
 
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/iv_itempic_cart"
         app:layout_constraintRight_toLeftOf="@id/guideline2"
         app:layout_constraintTop_toTopOf="parent">
         <!--<TextView
@@ -27,20 +32,13 @@
         <TextView
             android:id="@+id/itemShopName_cart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:text="Name of item in shop"
-            android:textSize="25sp" />
+            android:layout_height="0dp"
+            android:layout_weight="2"
 
-        <TextView
-            android:id="@+id/textOfferDaysRemaining_cart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="bottom|center_horizontal"
-            android:text="No of days remaining"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="15sp" />
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="Name of item in shop"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <android.support.constraint.Guideline
@@ -59,35 +57,39 @@
         app:layout_constraintRight_toLeftOf="@id/guideline3"
         app:layout_constraintLeft_toRightOf="@id/guideline2">
 
-        <Button            android:id="@+id/btn_addQuant"
+        <TextView            android:id="@+id/btn_addQuant"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
 
-            android:gravity="center"
-            android:padding="0dp"
+            android:gravity="center_horizontal|top"
             android:text="+"
-            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="21sp"
 
             android:onClick="addQuant"/>
 
         <TextView            android:id="@+id/itemQuant_cart"
             android:layout_width="match_parent"
-            android:layout_height="17dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
 
-            android:gravity="center"
+            android:gravity="center_horizontal|bottom"
 
             android:text="1"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
-        <Button            android:id="@+id/btn_subQuant"
+        <TextView            android:id="@+id/btn_subQuant"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
 
-            android:layout_margin="0dp"
-            android:padding="0dp"
             android:text="-"
-            android:gravity="center"
-            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+            android:gravity="top|center_horizontal"
+            android:textSize="21sp"
 
             android:onClick="subQuant"/>
 
@@ -106,6 +108,7 @@
         android:layout_height="match_parent"
 
         android:text="$6.0"
+        android:textColor="#000"
         android:textSize="20sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"

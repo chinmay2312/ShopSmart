@@ -2,6 +2,8 @@ package com.chinmayg.hacks.shopsmart;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +20,7 @@ public class CartActivity extends Activity {
     TextView cartTotal;
 	CartItemAdapter cartItemAdapter;
 	
-	Button btn_addQuant,btn_subQuant;
+	TextView btn_addQuant,btn_subQuant;
 
     ArrayList<ShopItem> cart_list;
 
@@ -26,7 +28,7 @@ public class CartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ee0202")));
         setTitle("Cart for Costco");
 
         lvcart = findViewById(R.id.cart_lv);
@@ -35,10 +37,12 @@ public class CartActivity extends Activity {
         btn_subQuant = findViewById(R.id.btn_subQuant);
 
         cart_list = new ArrayList<>();
+	
+		String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 
-        ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1);
-        ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1);
-        ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1);
+        ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1, imgUrl);
+        ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1, imgUrl);
+        ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1, imgUrl);
         cart_list.add(si);
         cart_list.add(si2);
         cart_list.add(si3);
@@ -47,7 +51,7 @@ public class CartActivity extends Activity {
         cartItemAdapter = new CartItemAdapter(this, cart_list);
         lvcart.setAdapter(cartItemAdapter);
 	
-		cartTotal.setText("Your cart total is : $"+getCartTotal());
+		cartTotal.setText("$"+getCartTotal());
 
         Button btnCheckout = findViewById(R.id.btn_checkout);
         btnCheckout.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +84,7 @@ public class CartActivity extends Activity {
 				break;
 			}
 		}
-		cartTotal.setText("Your cart total is : $"+getCartTotal());
+		cartTotal.setText("$"+getCartTotal());
 	}
 	
 	void updateCartTotal()	{

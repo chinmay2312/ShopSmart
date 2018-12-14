@@ -144,5 +144,4 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
 			
 		}
 	}
- 
 }
