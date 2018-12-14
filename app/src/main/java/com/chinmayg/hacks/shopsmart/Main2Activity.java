@@ -2,6 +2,8 @@ package com.chinmayg.hacks.shopsmart;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +48,7 @@ public class Main2Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ee0202")));
 	
 		new PostRecomm(this).execute();
         

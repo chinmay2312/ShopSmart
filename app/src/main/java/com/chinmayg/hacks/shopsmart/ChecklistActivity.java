@@ -3,6 +3,8 @@ package com.chinmayg.hacks.shopsmart;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,6 +29,9 @@ public class ChecklistActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checklist);
+		setTitle("List");
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ee0202")));
+		
 		
 		et_checklist =findViewById(R.id.et_checklist);
 		lv_checklist = findViewById(R.id.checklist);
