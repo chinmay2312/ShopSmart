@@ -43,6 +43,16 @@ public class ChecklistActivity extends Activity {
 		cl_ad = new ArrayAdapter(this, android.R.layout.simple_list_item_1, checklist_arrl);
 		lv_checklist.setAdapter(cl_ad);
 		
+		lv_checklist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+				String oldItem = checklist_arrl.remove(i);
+				cl_ad.notifyDataSetChanged();
+				Toast.makeText(getApplicationContext(), "Removed " + oldItem, Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		});
+		
 		//getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		
 		lv_checklist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
