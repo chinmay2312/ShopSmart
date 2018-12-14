@@ -70,9 +70,9 @@ public class Main2Activity extends Activity {
 		topPicks_arrl.add(si2);
 		topPicks_arrl.add(si3);
 		
-        final EditText addSearch = findViewById(R.id.search_box);
+        EditText addSearch = findViewById(R.id.search_box);
 
-        ImageButton btnSearch = findViewById(R.id.btn_search);
+        /*ImageButton btnSearch = findViewById(R.id.btn_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +86,15 @@ public class Main2Activity extends Activity {
                     startActivity(searchIntent);
                 }
             }
-        });
+        });*/
+        addSearch.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+				searchIntent.putExtra("SEARCH_STRING","");
+				startActivity(searchIntent);
+			}
+		});
 
 
         rv_dailyRecom = findViewById(R.id.daily_recom);

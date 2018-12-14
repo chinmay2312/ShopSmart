@@ -9,59 +9,67 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="180dp"
         android:layout_height="200dp"
-        card_view:cardUseCompatPadding="true"
         card_view:contentPadding="5dp"
-        card_view:cardElevation="5dp"
-        card_view:cardCornerRadius="5dp">
+        card_view:cardUseCompatPadding="true"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TextView                android:id="@+id/topPick_shopname"
+            <ImageView                android:id="@+id/iv_toppick_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
 
                 android:layout_alignParentTop="true"
 
-                android:textSize="12sp"
-                android:text="Shop Name"/>
+                android:scaleType="fitCenter"
+                />
 
             <TextView                android:id="@+id/tv_toppick_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_below="@id/topPick_shopname"
+                android:layout_below="@id/iv_toppick_item"
 
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:text="Item Name"   />
-
-            <ImageView                android:id="@+id/iv_toppick_item"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-
-                android:layout_above="@id/toppick_daysRem"
-
-                android:scaleType="centerInside"
-                />
 
             <TextView                android:id="@+id/toppick_daysRem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_above="@id/topPick_itemprice"
+                android:layout_below="@id/tv_toppick_item"
 
                 android:textSize="12sp"
+                android:textColor="@android:color/holo_red_light"
                 android:text="Days remaining"/>
 
-            <TextView                android:id="@+id/topPick_itemprice"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_below="@id/toppick_daysRem"
                 android:layout_alignParentBottom="true"
-                android:textSize="18sp"
-                android:text="Item Price"/>
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
 
+                <TextView                android:id="@+id/topPick_itemprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+
+                    android:textSize="18sp"
+                    android:text="Item Price"/>
+                <TextView                android:id="@+id/topPick_shopname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="right|bottom"
+
+                    android:textSize="12sp"
+                    android:text="Shop Name"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
