@@ -80,31 +80,29 @@ public class SearchActivity extends Activity {
         //dynaRecos.setHasFixedSize(true);
         dynaRecosLM = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         dynaRecos.setLayoutManager(dynaRecosLM);
-        dynaRecosAd = new ShopItemAdapter(SearchActivity.this, siArrL);
+        //dynaRecosAd = new ShopItemAdapter(SearchActivity.this, siArrL);
+        dynaRecosAd = new TopPicksAdapter(this, siArrL);
         dynaRecos.setAdapter(dynaRecosAd);
-        dynaRecos.post(new Runnable() {
+        /*dynaRecos.post(new Runnable() {
             @Override
             public void run() {
                 int maxItemCount = dynaRecosAd.getItemCount()-1;
                 for(int i=1;i<=maxItemCount;i++) {
                     dynaRecos.smoothScrollToPosition(i);
-                    /*try {
+                    *//*try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }*/
+                    }*//*
                 }
             }
-        });
+        });*/
 
 
         srchRes = findViewById(R.id.search_res_list);
         srchResArrL = new ArrayList<>();
         srchResArrL.add(si);
-        /*srchResArrL.add("baking soda");
-		srchResArrL.add("search result 1");
-		srchResArrL.add("search result 2");*/
-		
+        
 		//adapter =new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, srchResArrL);
 		adapter = new SearchItemAdapter(this, srchResArrL);
 		srchRes.setAdapter(adapter);

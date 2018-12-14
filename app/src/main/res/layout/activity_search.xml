@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="5dp"
+    android:paddingBottom="4dp"
+    android:paddingTop="6dp"
     android:paddingHorizontal="3dp"
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
-    <EditText
-        android:id="@+id/et_search"
+    <EditText        android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
@@ -19,23 +19,16 @@
         android:drawableLeft="@drawable/ic_search_black_24dp"
         android:inputType="text"
         />
-    <!--<AutoCompleteTextView
-        android:id="@+id/et_search"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
--->
-    <ListView
-        android:id="@+id/search_res_list"
+
+    <ListView        android:id="@+id/search_res_list"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="10"   />
+        android:layout_weight="7"   />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/dyna_recos"
+    <android.support.v7.widget.RecyclerView        android:id="@+id/dyna_recos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="5">
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
