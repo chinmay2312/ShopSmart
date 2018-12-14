@@ -10,6 +10,12 @@ public class ShopItem {
     private String shopName;
 	private int quantity;
 	
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	
+	private String imgUrl;
+	
 	public int getQuantity() {
 		return quantity;
 	}
@@ -33,6 +39,14 @@ public class ShopItem {
 		this.itemShopName = itemShopName;
 		this.quantity = quantity;
 		
+		this.shopPrice = (float) Math.round(shopPrice*100f)/100f;
+	}
+	public ShopItem(float shopPrice, int offerDaysRemaining, String itemShopName, String shopName, int quantity, String imgUrl)	{
+		this.shopName = shopName;
+		this.imgUrl = imgUrl;
+		this.offerDaysRemaining = offerDaysRemaining;
+		this.itemShopName = itemShopName;
+		this.quantity = quantity;
 		this.shopPrice = (float) Math.round(shopPrice*100f)/100f;
 	}
 

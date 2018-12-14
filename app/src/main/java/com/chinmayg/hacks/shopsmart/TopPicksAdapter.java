@@ -1,15 +1,26 @@
 package com.chinmayg.hacks.shopsmart;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHolder> {
@@ -40,6 +51,9 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
 			holder.textOfferDaysRemaining.setText(daysRem+" days left");
 		final String itemName = toppicks_arrl.get(position).getItemShopName();
 		holder.itemShopName.setText(itemName);
+		
+		//new ShowImage(holder.prodImg).execute("https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg");
+		new ShowImage(holder.prodImg).execute(toppicks_arrl.get(position).getImgUrl());
     
         holder.setClickListener(new ItemClickListener() {
             @Override
@@ -57,6 +71,7 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         
         public TextView textShop,itemShopName, textOfferDaysRemaining, shopPrice;
+        public ImageView prodImg;
         private ItemClickListener clickListener;
         
         ViewHolder(View itemView) {
@@ -66,6 +81,7 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
             itemShopName = itemView.findViewById(R.id.tv_toppick_item);
             textOfferDaysRemaining = itemView.findViewById(R.id.toppick_daysRem);
             shopPrice = itemView.findViewById(R.id.topPick_itemprice);
+            prodImg = itemView.findViewById(R.id.iv_toppick_item);
             
             itemView.setOnClickListener(this);
         }
@@ -79,4 +95,54 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
             clickListener.onClick(view, getPosition());
         }
     }
+	
+	private static class ShowImage extends AsyncTask<String,Void, Void> {
+		Drawable d=null;
+		
+		private WeakReference<ImageView> imageViewWeakReference;
+		
+		public ShowImage(ImageView imageView)	{
+			//this.context = c;
+			imageViewWeakReference = new WeakReference<>(imageView);
+		}
+		
+		@Override
+		protected Void doInBackground(String... params) {
+			
+			
+			URL url = null;
+			try {
+				//url = new URL("https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg");
+				url = new URL(params[0]);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			InputStream content = null;
+			try {
+				content = (InputStream)url.getContent();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			d = Drawable.createFromStream(content , "src");
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			
+			if(imageViewWeakReference !=null) {
+				
+				ImageView imageView = imageViewWeakReference.get();
+				if (imageView == null)
+					return;
+				
+				
+				imageView.setImageDrawable(d);
+				
+			}
+			
+		}
+	}
+ 
 }

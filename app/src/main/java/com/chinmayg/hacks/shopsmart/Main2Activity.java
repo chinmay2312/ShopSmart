@@ -60,10 +60,12 @@ public class Main2Activity extends Activity {
 		rv_topPicks.setLayoutManager(llm);
 		topPicksAd = new TopPicksAdapter(Main2Activity.this, topPicks_arrl);
 		rv_topPicks.setAdapter(topPicksAd);
+		
+		String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 	
-		ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1);
-		ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1);
-		ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1);
+		ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1, imgUrl);
+		ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1, imgUrl);
+		ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1, imgUrl);
 		topPicks_arrl.add(si);
 		topPicks_arrl.add(si2);
 		topPicks_arrl.add(si3);
@@ -225,7 +227,9 @@ public class Main2Activity extends Activity {
 				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
 				ShopItem si;
 				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
-					si = new ShopItem(5.8f, 3, dailyRecsArrJson.getString(dailyRecIndex),"Jewel Osco",dailyRecIndex+1);
+					String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
+					String prodName = dailyRecsArrJson.getString(dailyRecIndex);
+					si = new ShopItem(5.8f, 3, prodName,"Jewel Osco",dailyRecIndex+1, imgUrl);
 					main2Activity.dailyRecom_arrl.add(si);
 				}
 			} catch (JSONException e) {

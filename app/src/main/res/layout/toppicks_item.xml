@@ -18,23 +18,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView                android:id="@+id/tv_toppick_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_below="@id/topPick_shopname"
-
-                android:textSize="20sp"
-                android:text="Item Name"   />
-
             <TextView                android:id="@+id/topPick_shopname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:layout_alignParentTop="true"
 
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:text="Shop Name"/>
+
+            <TextView                android:id="@+id/tv_toppick_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/topPick_shopname"
+
+                android:textSize="18sp"
+                android:text="Item Name"   />
+
+            <ImageView                android:id="@+id/iv_toppick_item"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+
+                android:layout_above="@id/toppick_daysRem"
+
+                android:scaleType="centerInside"
+                />
 
             <TextView                android:id="@+id/toppick_daysRem"
                 android:layout_width="match_parent"
@@ -42,6 +51,7 @@
 
                 android:layout_above="@id/topPick_itemprice"
 
+                android:textSize="12sp"
                 android:text="Days remaining"/>
 
             <TextView                android:id="@+id/topPick_itemprice"
