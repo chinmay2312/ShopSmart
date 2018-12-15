@@ -7,8 +7,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -43,7 +45,7 @@ public class CheckoutActivity extends Activity {
 		tv_shopAddr.setText(shopAddr);
 		
 		timeSlots = findViewById(R.id.time_slots);
-		ArrayList<String> timeSlotsArrl = new ArrayList<>();
+		final ArrayList<String> timeSlotsArrl = new ArrayList<>();
 		timeSlotsArrl.add("");
 		timeSlotsArrl.add("10am - 12pm");
 		timeSlotsArrl.add("12pm - 2pm");
@@ -76,6 +78,8 @@ public class CheckoutActivity extends Activity {
 				Random rnd = new Random();
 				int n = 100000 + rnd.nextInt(900000);
 				confirmIntent.putExtra("CONFIRM_CODE", n);
+				Log.d("time_slot",timeSlots.getSelectedItem().toString());
+				confirmIntent.putExtra("TIME_SLOT",timeSlots.getSelectedItem().toString());
 				startActivity(confirmIntent);
 			}
 		});
