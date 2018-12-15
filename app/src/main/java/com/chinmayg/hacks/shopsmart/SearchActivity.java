@@ -219,8 +219,11 @@ public class SearchActivity extends Activity {
 					ShopItem si;
 					for (int dailyRecIndex = 0; dailyRecIndex < dailyRecsArrJson.length(); dailyRecIndex++) {
 						//searchActivity.srchResArrL.add(dailyRecsArrJson.getString(dailyRecIndex));
-						String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
-						si = new ShopItem(5.8f, 3, dailyRecsArrJson.getString(dailyRecIndex),"Jewel Osco",1, imgUrl);
+						JSONObject resObj = dailyRecsArrJson.getJSONObject(dailyRecIndex);
+						String prodName = resObj.getString("name");
+						String imgUrl = resObj.getString("url");
+						float shopPrice = Float.valueOf(resObj.getString("price").substring(1));
+						si = new ShopItem(shopPrice, 3, prodName,"Jewel Osco",1, imgUrl);
 						searchActivity.srchResArrL.add(si);
 						//Log.d("post_search",searchActivity.srchResArrL.get(0));
 					}
