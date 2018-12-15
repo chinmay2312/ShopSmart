@@ -67,7 +67,7 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
                 Toast.makeText(c, "Added "+itemName+" to cart",Toast.LENGTH_SHORT).show();
                 String username = "chin";
                 String prodId = toppicks_arrl.get(position).getID();
-                //new PostCart(username, prodId).execute();
+                new PostCart(username, prodId).execute();
             }
         });
     }
@@ -179,6 +179,7 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.ViewHo
 				
 				JSONObject postParams = new JSONObject();
 				postParams.put("username",username);
+				Log.d("post-cart","prodid="+prodId);
 				postParams.put("product",Integer.parseInt(prodId));
 				
 				conn.connect();

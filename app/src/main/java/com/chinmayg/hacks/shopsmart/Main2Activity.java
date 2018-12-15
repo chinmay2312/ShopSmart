@@ -228,8 +228,9 @@ public class Main2Activity extends Activity {
 					String imgUrl = jsonObject.getString("url");
 					//String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 					String prodName = jsonObject.getString("name");
+					String prodid = jsonObject.getString("id");
 					float itemPrice = Float.valueOf(jsonObject.getString("price").substring(1));
-					si = new ShopItem(itemPrice, 3, prodName,"Pete's",dailyRecIndex+1, imgUrl);
+					si = new ShopItem(prodid, itemPrice, 3, prodName,"Pete's",dailyRecIndex+1, imgUrl);
 					main2Activity.dailyRecom_arrl.add(si);
 				}
 			} catch (JSONException e) {
@@ -320,8 +321,9 @@ public class Main2Activity extends Activity {
 					String imgUrl = jsonObject.getString("url");
 					//String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 					String prodName = jsonObject.getString("name");
+					String prodid = jsonObject.getString("id");
 					float itemPrice = Float.valueOf(jsonObject.getString("price").substring(1));
-					si = new ShopItem(itemPrice, 3, prodName,"Pete's",dailyRecIndex+1, imgUrl);
+					si = new ShopItem(prodid, itemPrice, 3, prodName,"Pete's",dailyRecIndex+1, imgUrl);
 					//si = new ShopItem(5.8f, 3, "White eggs","Pete's",dailyRecIndex+1);
 					main2Activity.topPicks_arrl.add(si);
 				}
