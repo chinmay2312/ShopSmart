@@ -4,11 +4,11 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class ShopItem {
-	public int getID() {
+	public String getID() {
 		return ID;
 	}
 	
-	private int ID;
+	private String ID;
     private float shopPrice;
     private int offerDaysRemaining;
     private String itemShopName;
@@ -46,7 +46,7 @@ public class ShopItem {
 		this.quantity = quantity;
 		this.shopPrice = (float) Math.round(shopPrice*100f)/100f;
 	}
-	public ShopItem(int ID, float shopPrice, int offerDaysRemaining, String itemShopName, String shopName, int quantity, String imgUrl)	{
+	public ShopItem(String ID, float shopPrice, int offerDaysRemaining, String itemShopName, String shopName, int quantity, String imgUrl)	{
 		this.ID = ID;
 		this.shopName = shopName;
 		this.imgUrl = imgUrl;

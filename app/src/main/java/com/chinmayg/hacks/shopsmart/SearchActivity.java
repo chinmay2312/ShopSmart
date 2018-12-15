@@ -71,11 +71,11 @@ public class SearchActivity extends Activity {
 		String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 		
         siArrL = new ArrayList<>();
-        ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1, imgUrl);
+        ShopItem si = new ShopItem(5.8f, 3, "White eggs","Pete's",1, imgUrl);
         siArrL.add(si);
         ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's", 1,imgUrl);
         siArrL.add(si2);
-        ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1,imgUrl);
+        ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Pete's",1,imgUrl);
         siArrL.add(si3);
 
         dynaRecos = findViewById(R.id.dyna_recos);
@@ -225,7 +225,7 @@ public class SearchActivity extends Activity {
 						String prodName = resObj.getString("name");
 						String imgUrl = resObj.getString("url");
 						float shopPrice = Float.valueOf(resObj.getString("price").substring(1));
-						si = new ShopItem(1, shopPrice, 3, prodName,"Jewel Osco",1, imgUrl);
+						si = new ShopItem("162", shopPrice, 3, prodName,"Pete's",1, imgUrl);
 						searchActivity.srchResArrL.add(si);
 						//Log.d("post_search",searchActivity.srchResArrL.get(0));
 					}
@@ -323,7 +323,7 @@ public class SearchActivity extends Activity {
 						String prodName = resObj.getString("name");
 						String imgUrl = resObj.getString("url");
 						float shopPrice = Float.valueOf(resObj.getString("price").substring(1));
-						si = new ShopItem(1, shopPrice, 3, prodName,"Jewel Osco",1, imgUrl);
+						si = new ShopItem("162", shopPrice, 3, prodName,"Pete's",1, imgUrl);
 						searchActivity.siArrL.add(si);
 						//Log.d("post_search",searchActivity.srchResArrL.get(0));
 					}

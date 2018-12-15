@@ -59,17 +59,21 @@ public class Main2Activity extends Activity {
 		LinearLayoutManager llm = new LinearLayoutManager(Main2Activity.this, LinearLayoutManager.HORIZONTAL, false);
 		rv_topPicks.setLayoutManager(topPicksLM);
 		rv_topPicks.setLayoutManager(llm);
-		topPicksAd = new TopPicksAdapter(Main2Activity.this, topPicks_arrl);
-		rv_topPicks.setAdapter(topPicksAd);
+		
 		
 		String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 	
-		ShopItem si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",1, imgUrl);
+		ShopItem si = new ShopItem(5.8f, 3, "White eggs","Pete's",1, imgUrl);
 		ShopItem si2 = new ShopItem(3.2f, 6, "Whole wheat bread","Pete's",1, imgUrl);
-		ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Costco",1, imgUrl);
+		ShopItem si3 = new ShopItem(2.6f, 2, "Kirkland low-fat milk","Pete's",1, imgUrl);
 		topPicks_arrl.add(si);
 		topPicks_arrl.add(si2);
 		topPicks_arrl.add(si3);
+	
+		topPicksAd = new TopPicksAdapter(Main2Activity.this, topPicks_arrl);
+		rv_topPicks.setAdapter(topPicksAd);
+		
+		
 		
         EditText addSearch = findViewById(R.id.search_box);
         addSearch.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +229,7 @@ public class Main2Activity extends Activity {
 					//String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 					String prodName = jsonObject.getString("name");
 					float itemPrice = Float.valueOf(jsonObject.getString("price").substring(1));
-					si = new ShopItem(itemPrice, 3, prodName,"Jewel Osco",dailyRecIndex+1, imgUrl);
+					si = new ShopItem(itemPrice, 3, prodName,"Pete's",dailyRecIndex+1, imgUrl);
 					main2Activity.dailyRecom_arrl.add(si);
 				}
 			} catch (JSONException e) {
@@ -317,8 +321,8 @@ public class Main2Activity extends Activity {
 					//String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
 					String prodName = jsonObject.getString("name");
 					float itemPrice = Float.valueOf(jsonObject.getString("price").substring(1));
-					si = new ShopItem(itemPrice, 3, prodName,"Jewel Osco",dailyRecIndex+1, imgUrl);
-					//si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",dailyRecIndex+1);
+					si = new ShopItem(itemPrice, 3, prodName,"Pete's",dailyRecIndex+1, imgUrl);
+					//si = new ShopItem(5.8f, 3, "White eggs","Pete's",dailyRecIndex+1);
 					main2Activity.topPicks_arrl.add(si);
 				}
 			} catch (JSONException e) {
