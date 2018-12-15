@@ -51,6 +51,7 @@ public class Main2Activity extends Activity {
 		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ee0202")));
 	
 		new PostRecomm(this).execute();
+		new PostTopPicks(this).execute();
         
         rv_topPicks = findViewById(R.id.top_picks);
 		//dynaRecos.setHasFixedSize(true);
@@ -219,9 +220,12 @@ public class Main2Activity extends Activity {
 				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
 				ShopItem si;
 				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
-					String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
-					String prodName = dailyRecsArrJson.getString(dailyRecIndex);
-					si = new ShopItem(5.8f, 3, prodName,"Jewel Osco",dailyRecIndex+1, imgUrl);
+					JSONObject jsonObject = dailyRecsArrJson.getJSONObject(dailyRecIndex);
+					String imgUrl = jsonObject.getString("url");
+					//String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
+					String prodName = jsonObject.getString("name");
+					float itemPrice = Float.valueOf(jsonObject.getString("price").substring(1));
+					si = new ShopItem(itemPrice, 3, prodName,"Jewel Osco",dailyRecIndex+1, imgUrl);
 					main2Activity.dailyRecom_arrl.add(si);
 				}
 			} catch (JSONException e) {
@@ -308,7 +312,13 @@ public class Main2Activity extends Activity {
 				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
 				ShopItem si;
 				for(int dailyRecIndex=0;dailyRecIndex<dailyRecsArrJson.length();dailyRecIndex++)	{
-					si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",dailyRecIndex+1);
+					JSONObject jsonObject = dailyRecsArrJson.getJSONObject(dailyRecIndex);
+					String imgUrl = jsonObject.getString("url");
+					//String imgUrl = "https://target.scene7.com/is/image/Target/GUEST_1d0330d7-eb98-413f-9f3d-c5bf6d51db3b?wid=488&hei=488&fmt=pjpeg";
+					String prodName = jsonObject.getString("name");
+					float itemPrice = Float.valueOf(jsonObject.getString("price").substring(1));
+					si = new ShopItem(itemPrice, 3, prodName,"Jewel Osco",dailyRecIndex+1, imgUrl);
+					//si = new ShopItem(5.8f, 3, "White eggs","Jewel Osco",dailyRecIndex+1);
 					main2Activity.topPicks_arrl.add(si);
 				}
 			} catch (JSONException e) {

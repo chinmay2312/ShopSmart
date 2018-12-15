@@ -58,6 +58,8 @@ public class SearchActivity extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		Log.d("searchactivity_create",""+this.getClass().toString());
         etSearch = findViewById(R.id.et_search);
+        
+        new PostDynaRecs(this).execute();
 
         Intent srchQryIntent = getIntent();
         String srchStr = srchQryIntent.getStringExtra("SEARCH_STRING");
@@ -223,7 +225,7 @@ public class SearchActivity extends Activity {
 						String prodName = resObj.getString("name");
 						String imgUrl = resObj.getString("url");
 						float shopPrice = Float.valueOf(resObj.getString("price").substring(1));
-						si = new ShopItem(shopPrice, 3, prodName,"Jewel Osco",1, imgUrl);
+						si = new ShopItem(1, shopPrice, 3, prodName,"Jewel Osco",1, imgUrl);
 						searchActivity.srchResArrL.add(si);
 						//Log.d("post_search",searchActivity.srchResArrL.get(0));
 					}
@@ -237,4 +239,102 @@ public class SearchActivity extends Activity {
             super.onPostExecute(aVoid);
         }
     }
+	
+	private static class PostDynaRecs extends AsyncTask<String,Void, Void> {
+		//private final Context context;
+		
+		JSONObject dailyRecJson=null;
+		JSONArray dailyRecsArrJson=null;
+		private WeakReference<SearchActivity> searchActivityWeakReference;
+		private  WeakReference<Application> appRef;
+		
+		public PostDynaRecs(SearchActivity context)	{
+			//this.context = c;
+			searchActivityWeakReference = new WeakReference<>(context);
+		}
+		
+		@Override
+		protected Void doInBackground(String... params) {
+			
+			HttpURLConnection conn=null;
+			try{
+				URL url = new URL("http://ec2-35-171-182-214.compute-1.amazonaws.com:3000/dynamicrecs");
+				conn = (HttpURLConnection) url.openConnection();
+				//String urlParams = "user=chin";
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+				
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				
+				JSONObject postParams = new JSONObject();
+				postParams.put("user","chin");
+				
+				conn.connect();
+				
+				DataOutputStream dStream = new DataOutputStream(conn.getOutputStream());
+				dStream.writeBytes(postParams.toString());
+				dStream.flush();
+				dStream.close();
+				int resCode = conn.getResponseCode();
+				
+				Log.d("post_search","Response code: "+resCode);
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line = "";
+				StringBuilder responseOutput = new StringBuilder();
+				while((line = br.readLine()) != null ) {
+					responseOutput.append(line);
+				}
+				br.close();
+				
+				Log.d("post_search","Output:"+responseOutput.toString());
+				
+				dailyRecJson = new JSONObject(responseOutput.toString());
+				//Log.d("post_search","Rec-Type:"+dailyRecJson.get("recommendation_type"));
+				dailyRecsArrJson = dailyRecJson.getJSONArray("recommendations");
+				
+				
+			} catch (IOException | JSONException e)	{
+				e.printStackTrace();
+			} finally {
+				if(conn!=null)
+					conn.disconnect();
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			
+			SearchActivity searchActivity = searchActivityWeakReference.get();
+			if(searchActivity==null || searchActivity.isFinishing())
+				return;
+			
+			searchActivity.siArrL.clear();
+			//Log.d("post_search","Json_arr="+dailyRecsArrJson.toString());
+			if(dailyRecsArrJson!=null) {
+				try {
+					ShopItem si;
+					for (int dailyRecIndex = 0; dailyRecIndex < dailyRecsArrJson.length(); dailyRecIndex++) {
+						//searchActivity.srchResArrL.add(dailyRecsArrJson.getString(dailyRecIndex));
+						JSONObject resObj = dailyRecsArrJson.getJSONObject(dailyRecIndex);
+						String prodName = resObj.getString("name");
+						String imgUrl = resObj.getString("url");
+						float shopPrice = Float.valueOf(resObj.getString("price").substring(1));
+						si = new ShopItem(1, shopPrice, 3, prodName,"Jewel Osco",1, imgUrl);
+						searchActivity.siArrL.add(si);
+						//Log.d("post_search",searchActivity.srchResArrL.get(0));
+					}
+				} catch (JSONException e)	{
+					e.printStackTrace();
+				}
+			}
+			
+			searchActivity.dynaRecosAd.notifyDataSetChanged();
+			//Toast.makeText(appRef, "Updated search results",Toast.LENGTH_SHORT).show();
+			super.onPostExecute(aVoid);
+		}
+	}
 }
